@@ -36,6 +36,6 @@ deployer:
     S3Deployer:
       role: default
       code: lambdas/s3_deployer.py
-      runtime: python3.9
+      runtime: python3.14
       timeout: 120
       handler: s3_deployer.handler
