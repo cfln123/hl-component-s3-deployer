@@ -5,7 +5,7 @@ deployer:
       action:
         - cloudfront:CreateInvalidation
       resource: 
-        - *
+        - '*'
     s3_source:
       action:
         - s3:GetObject
