@@ -66,7 +66,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Description: Transforms S3Deployer::Deployment resources into Custom::S3Deployer resources
-      CodeUri: transform
+      CodeUri: macro
       Handler: transform.handler
       Runtime: python3.14
       Timeout: 30
