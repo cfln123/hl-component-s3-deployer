@@ -2,6 +2,7 @@ require 'json'
 CloudFormation do
 
   deployment_filter = external_parameters.fetch(:deployment_filter, nil)
+  deployment_metadata = external_parameters.fetch(:deployment_metadata, nil)
 
   Resource("S3DeployerCR") do
     Type 'Custom::S3Deployer'
@@ -12,6 +13,7 @@ CloudFormation do
     Property 'DeploymentKey', Ref(:DeploymentKey)
     Property 'DeploymentDistribution', Ref(:DeploymentDistribution)
     Property 'DeploymentFilter', FnSub(deployment_filter.to_json()) unless deployment_filter.nil?
+    Property 'DeploymentMetaData', FnSub(deployment_metadata.to_json()) unless deployment_metadata.nil?
   end
 
 end
