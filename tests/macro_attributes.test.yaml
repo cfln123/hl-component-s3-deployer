@@ -10,7 +10,7 @@ template:
     WebsiteBucket:
       Type: AWS::S3::Bucket
     WebsiteDeployment:
-      Type: S3Deployer::Deployment
+      Type: HLComponent::S3Deployer::Deployment
       Condition: IsProd
       DependsOn: WebsiteBucket
       Properties:

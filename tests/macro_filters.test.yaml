@@ -9,7 +9,7 @@ template:
       Type: String
   Resources:
     WebsiteDeployment:
-      Type: S3Deployer::Deployment
+      Type: HLComponent::S3Deployer::Deployment
       Properties:
         DeploymentSourceBucket: artifacts
         DeploymentSourceKey: website.zip

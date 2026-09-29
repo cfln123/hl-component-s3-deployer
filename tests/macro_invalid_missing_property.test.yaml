@@ -6,6 +6,6 @@ test_metadata:
 template:
   Resources:
     WebsiteDeployment:
-      Type: S3Deployer::Deployment
+      Type: HLComponent::S3Deployer::Deployment
       Properties:
         DeploymentBucket: website

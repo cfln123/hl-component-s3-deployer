@@ -3,7 +3,7 @@ Component to deploy files from a zip file to an S3 bucket that also allows file 
 
 ## CloudFormation macro
 
-The same deployer is also available as a CloudFormation macro, for plain CloudFormation templates that don't use cfhighlander.
+The same deployer is also available as a CloudFormation macro, for plain CloudFormation templates that don't use HLComponent.
 
 ### Deploying the macro
 
@@ -19,7 +19,6 @@ sam deploy \
 
 | Parameter | Default | Description |
 |---|---|---|
-| `MacroName` | `S3Deployer` | Name used in the `Transform` section |
 | `SourceBucketPattern` | `*` | Bucket(s) the deployer can read zip files from |
 | `DestinationBucketPattern` | `*` | Bucket(s) the deployer can deploy files to |
 | `SourceBucketAccountId` | macro account | Account that owns the source buckets |
@@ -31,13 +30,13 @@ One deployer Lambda is shared by every stack that uses the macro. Restrict the b
 
 ### Using the macro
 
-Add the transform and declare a `S3Deployer::Deployment` resource. Intrinsic functions can be used anywhere, including inside filter values:
+Add the transform and declare a `HLComponent::S3Deployer::Deployment` resource. Intrinsic functions can be used anywhere, including inside filter values:
 
 ```yaml
-Transform: S3Deployer
+Transform: HLComponentS3Deployer
 Resources:
   WebsiteDeployment:
-    Type: S3Deployer::Deployment
+    Type: HLComponent::S3Deployer::Deployment
     Properties:
       DeploymentSourceBucket: !Ref ArtifactBucket   # required
       DeploymentSourceKey: !Ref ArtifactKey         # required
@@ -57,7 +56,7 @@ In SAM templates, list `S3Deployer` ahead of the SAM transform:
 
 ```yaml
 Transform:
-  - S3Deployer
+  - HLComponentS3Deployer
   - AWS::Serverless-2016-10-31
 ```
 

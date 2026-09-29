@@ -1,12 +1,8 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: S3Deployer CloudFormation macro - expands S3Deployer::Deployment resources into Custom::S3Deployer resources
+Description: S3Deployer CloudFormation macro - expands HLComponent::S3Deployer::Deployment resources into Custom::S3Deployer resources
 
 Parameters:
-  MacroName:
-    Type: String
-    Default: S3Deployer
-    Description: Name used in the Transform section of templates that use the macro
   SourceBucketPattern:
     Type: String
     Default: '*'
@@ -47,7 +43,6 @@ Resources:
               Action:
                 - s3:GetObject
               Resource: !Sub arn:${AWS::Partition}:s3:::${SourceBucketPattern}/*
-              # bucket ARNs carry no account id, so pin buckets to their owning account
               Condition:
                 StringEquals:
                   s3:ResourceAccount: !If [SourceAccountIsLocal, !Ref AWS::AccountId, !Ref SourceBucketAccountId]
@@ -65,7 +60,7 @@ Resources:
   MacroFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Description: Transforms S3Deployer::Deployment resources into Custom::S3Deployer resources
+      Description: Transforms HLComponent::S3Deployer::Deployment resources into Custom::S3Deployer resources
       CodeUri: macro
       Handler: transform.handler
       Runtime: python3.14
@@ -77,13 +72,13 @@ Resources:
   Macro:
     Type: AWS::CloudFormation::Macro
     Properties:
-      Name: !Ref MacroName
-      Description: Expands S3Deployer::Deployment resources into Custom::S3Deployer resources
+      Name: HLComponentS3Deployer
+      Description: Expands HLComponent::S3Deployer::Deployment resources into Custom::S3Deployer resources
       FunctionName: !GetAtt MacroFunction.Arn
 
 Outputs:
   MacroName:
-    Value: !Ref MacroName
+    Value: HLComponentS3Deployer
   DeployerFunctionArn:
     Value: !GetAtt DeployerFunction.Arn
     Export:

@@ -1,7 +1,7 @@
 import json
 import os
 
-MACRO_RESOURCE_TYPE = 'S3Deployer::Deployment'
+MACRO_RESOURCE_TYPE = 'HLComponent::S3Deployer::Deployment'
 CUSTOM_RESOURCE_TYPE = 'Custom::S3Deployer'
 
 REQUIRED_PROPERTIES = ['DeploymentSourceBucket', 'DeploymentSourceKey', 'DeploymentBucket']
